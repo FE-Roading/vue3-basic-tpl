@@ -139,6 +139,8 @@ const checkItems: {
 
     &-body {
       width: 100%;
+      height: 0;
+      min-height: 0;
       flex: 1;
       display: flex;
       flex-wrap: nowrap;
@@ -220,6 +222,7 @@ const checkItems: {
       background-image: url("../../assets/images/measure/passed-result-bg.png");
       background-size: 100% 100%;
       height: 60px;
+      flex: none;
 
       display: flex;
       justify-content: center;
@@ -237,10 +240,12 @@ const checkItems: {
     }
 
     &-display {
+      height: 0;
+      min-height: 0;
       flex: 1;
 
       background-image: url("../../assets/images/measure/passed-car.png");
-      background-size: calc(100% - (100% - 232px) / 3 * 2) 61.5%;
+      background-size: calc(100% - (100% - 232px) / 3 * 2) 65%;
       background-position: top center;
       background-repeat: no-repeat;
 
@@ -249,7 +254,7 @@ const checkItems: {
 
     &-result {
       &-row {
-        height: calc(100% - 70px);
+        height: 100%;
       }
 
       &-column {
@@ -265,7 +270,13 @@ const checkItems: {
       }
 
       &-item {
-        height: calc(50% - 28px);
+        height: 0;
+        min-height: 0;
+        flex: 1;
+      }
+
+      &-spacer {
+        height: 56px;
         flex: none;
       }
 
@@ -274,9 +285,9 @@ const checkItems: {
         bottom: 0;
         left: 0;
         right: 0;
+        top: 61.5%;
       }
     }
   }
-
 }
 </style>
