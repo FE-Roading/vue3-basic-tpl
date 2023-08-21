@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "@/pages/home/index.vue"
+import Bad from "@/pages/bad/index.vue"
 import NotFound from "@/pages/error/404.vue"
 
 const router = createRouter({
@@ -9,6 +10,10 @@ const router = createRouter({
     {
       path: "/",
       component: Home
+    },
+    {
+      path: "/bad",
+      component: Bad
     },
     { 
       path: '/:pathMatch(.*)*',

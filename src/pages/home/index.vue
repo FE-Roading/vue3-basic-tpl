@@ -1,63 +1,27 @@
 <script setup lang="ts" name="home">
-import { ElRow, ElCol, ElTable, ElTableColumn } from "element-plus"
+import { ref, computed, } from "vue"
+import { ElRow, ElCol, ElTable, ElTableColumn, ElUpload, ElButton, UploadRawFile } from "element-plus"
+import { useRouter } from "vue-router"
 
 import Header from "@/components/header/index.vue"
+import { useInspectStore } from "@/store/modules/inspect"
 
-import { CheckedStatus, PassedItemType, ProblemsRankOfBad } from "./type"
+import { ProblemsRankOfBad } from "./type"
 import ResultList from "./result-list.vue"
 import RateList from "./rate-list.vue"
 
-import stationStatusTitleUri from "@/assets/images/measure/station-status-title.png?uri"
-import taskStatusTitleUri from "@/assets/images/measure/task-status-title.png?uri"
-import carIconUri from "@/assets/images/measure/car.png?uri"
-import vinIconUri from "@/assets/images/measure/vin.png?uri"
-import { ref } from "vue"
+import stationStatusTitleUri from "@/assets/images/inspect/station-status-title.png?uri"
+import taskStatusTitleUri from "@/assets/images/inspect/task-status-title.png?uri"
+import carIconUri from "@/assets/images/inspect/car.png?uri"
+import vinIconUri from "@/assets/images/inspect/vin.png?uri"
+import { storeToRefs } from "pinia"
+import { CheckedStatus } from "@/store/modules/inspect/type"
 
-const checkItems: { 
-  head: PassedItemType[]
-  right: PassedItemType[]
-  left: PassedItemType[]
-  top: PassedItemType[]
-  footer: PassedItemType[]
- } = {
-  head: [
-   { title: "车头灯", status: CheckedStatus.succeeded }, 
-   { title: "前保", status: CheckedStatus.succeeded }, 
-   { title: "前档", status: CheckedStatus.succeeded }, 
-   { title: "雨刮", status: CheckedStatus.succeeded }, 
-   { title: "前标", status: CheckedStatus.succeeded }, 
-  ],
-  right: [
-   { title: "右前车轮", status: CheckedStatus.succeeded }, 
-   { title: "右后车轮", status: CheckedStatus.succeeded }, 
-   { title: "右前车窗", status: CheckedStatus.succeeded }, 
-   { title: "右后车窗", status: CheckedStatus.succeeded }, 
-   { title: "右前车门", status: CheckedStatus.succeeded }, 
-   { title: "右后车门", status: CheckedStatus.succeeded }, 
-   { title: "右后视镜", status: CheckedStatus.succeeded }, 
-  ],
-  left: [
-   { title: "左前车轮", status: CheckedStatus.succeeded }, 
-   { title: "左后车轮", status: CheckedStatus.succeeded }, 
-   { title: "左前车窗", status: CheckedStatus.succeeded }, 
-   { title: "左后车窗", status: CheckedStatus.succeeded }, 
-   { title: "左前车门", status: CheckedStatus.succeeded }, 
-   { title: "左后车门", status: CheckedStatus.succeeded }, 
-   { title: "左后视镜", status: CheckedStatus.succeeded }, 
-  ],
-  top: [
-   { title: "天窗", status: CheckedStatus.succeeded }, 
-   { title: "行李架", status: CheckedStatus.succeeded }, 
-   { title: "鲨鱼鳍", status: CheckedStatus.succeeded }, 
-  ],
-  footer: [
-   { title: "车尾灯", status: CheckedStatus.succeeded }, 
-   { title: "车尾标", status: CheckedStatus.succeeded }, 
-   { title: "后保", status: CheckedStatus.succeeded }, 
-   { title: "尾箱标牌", status: CheckedStatus.succeeded }, 
-   { title: "扰流板", status: CheckedStatus.succeeded }, 
-  ],
-}
+const router = useRouter()
+const store = useInspectStore()
+const { inspectedIndex, inspectedItems } = storeToRefs(store)
+const isFinished = computed(() => inspectedIndex.value > 0 && inspectedItems.value.every(item => item.status != CheckedStatus.pending))
+const isPending = computed(() => inspectedIndex.value == 0)
 
 let _problemsRankOfBad: ProblemsRankOfBad[] = [
   {
@@ -89,17 +53,31 @@ let _problemsRankOfBad: ProblemsRankOfBad[] = [
 _problemsRankOfBad = _problemsRankOfBad.sort((a, b) => b.count - a.count).map((item, index) => ({ ...item, index: index + 1 }))
 const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
 
+function onBeforeUpload(raw: UploadRawFile) {
+  if (raw.name.includes("成功")) {
+    store.startInspect(true, router)
+  } else {
+    store.startInspect(false, router)
+  }
+
+  return Promise.reject()
+}
+
 </script>
 
 <template>
   <div class="home-pg">
     <Header class="home-header"/>
+    <ElUpload class="home-uploader" :before-upload="onBeforeUpload">
+      <template #trigger>
+        <ElButton type="primary">上传演示视频并运行</ElButton>
+      </template>
+    </ElUpload>
     <div class="home-body">
       <div class="home-column home-left">
         <img :src="stationStatusTitleUri" class="home-column-title" />
 
         <div class="home-column-body">
-
           <div class="hl-info">
             <div class="hl-info-item">
               <img class="hl-info-icon" :src="carIconUri" />
@@ -118,23 +96,23 @@ const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
           </div>
 
           <div class="hl-result">
-            <span class="hl-result-text">检查通过</span>
+            <span class="hl-result-text">{{ isPending ? "等待检测" : isFinished ? "检查通过" : "正在检测" }}</span>
           </div>
 
           <div class="hl-display">
             <ElRow :gutter="116" class="hl-result-row">
               <ElCol :span="8" class="hl-result-column">
-                <ResultList title="车头检测" :items="checkItems.head" class="hl-result-item"/>
+                <ResultList title="车头检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
                 <div class="hl-result-spacer" />
-                <ResultList title="左侧检测" :items="checkItems.left" class="hl-result-item"/>
+                <ResultList title="左侧检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
               </ElCol>
               <ElCol :span="8" class="hl-result-column-relative">
-                <ResultList title="车顶检测" :items="checkItems.top" class="hl-result-center-bottom"/>
+                <ResultList title="车顶检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-center-bottom"/>
               </ElCol>
               <ElCol :span="8" class="hl-result-column">
-                <ResultList title="右侧检测" :items="checkItems.right" class="hl-result-item"/>
+                <ResultList title="右侧检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
                 <div class="hl-result-spacer" />
-                <ResultList title="车尾检测" :items="checkItems.footer" class="hl-result-item"/>
+                <ResultList title="车尾检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
               </ElCol>
             </ElRow>
 
@@ -198,6 +176,12 @@ const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
       flex: none;
     }
 
+    &-uploader {
+      position: absolute;
+      top: 60px;
+      left: 32px;
+    }
+
     &-body {
       width: 100%;
       height: 0;
@@ -221,7 +205,7 @@ const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
       padding: 10px;
       padding-top: 0;
       
-      background-image: url("../../assets/images/measure/column-bg.png");
+      background-image: url("../../assets/images/inspect/column-bg.png");
       background-size: 100% 100%;
 
       &-title {
@@ -289,7 +273,7 @@ const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
     &-result {
       margin-top: 41px;
       margin-bottom: 31px;
-      background-image: url("../../assets/images/measure/passed-result-bg.png");
+      background-image: url("../../assets/images/inspect/passed-result-bg.png");
       background-size: 100% 100%;
       height: 60px;
       flex: none;
@@ -314,7 +298,7 @@ const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
       min-height: 0;
       flex: 1;
 
-      background-image: url("../../assets/images/measure/passed-car.png");
+      background-image: url("../../assets/images/inspect/passed-car.png");
       background-size: calc(100% - (100% - 232px) / 3 * 2) 65%;
       background-position: top center;
       background-repeat: no-repeat;

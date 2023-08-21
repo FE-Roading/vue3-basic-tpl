@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import imgUri from "@/assets/images/measure/header.png"
+import imgUri from "@/assets/images/inspect/header.png"
 
 type IndexProps = {
   showTitle?: boolean
@@ -32,7 +32,7 @@ const { showTitle } = defineProps<IndexProps>()
 
     height: 63px;
     width: 992px;
-    background-image: url("../../assets/images/measure/title.png");
+    background-image: url("../../assets/images/inspect/title.png");
     background-position: top center;
     background-repeat: no-repeat;
 

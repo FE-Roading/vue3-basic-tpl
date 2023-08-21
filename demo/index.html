@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAL整车检测显示屏</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="{{ url_for('static',filename='css/bootstap.css') }}" rel="stylesheet" type="text/css" />
+    <!-- <link href="../static/css/bootstap.css" rel="stylesheet" type="text/css" /> -->
+</head>
+
+<body>
+    <div id="body-top" class="top" data-status="{{ status }}">CAL整车检测显示屏</div>
+    <div id="cal-content">
+        <div id="left" class="liangbian">
+            <div class="left-top color_burlywood">外饰自动检测工位实时情况</div>
+            <div class="left-center">
+                <div id="left-center-top">
+                    <div class="chexing">
+                        <p class="color_burlywood">当前检测车型</p>
+                        <p class="color_white">
+                            {% if status == "success" %}
+                            领裕
+                            {% elif status == "fail" %}
+                            领睿
+                            {% else %}
+                            -
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="vin">
+                        <p class="color_burlywood">车辆VIN号</p>
+                        <p class="color_white">
+                            {% if status == "success" %}
+                            LEFEDEF23PTP19651
+                            {% elif status == "fail" %}
+                            LEFEDEF45PTP18352
+                            {% else %}
+                            -
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                {% if status == "" %}
+                    <div id="loading-item" class="loading-pending loading" style="background-color: #808080;">待检测</div>
+                {% else %}
+                    <div id="loading-item" class="loading-working loading">检测中...(已检测<span id="loading-num">0</span>/16)</div>
+                {% endif %}
+                <div class="content">
+                    <div class="line">
+                        <div class="check" id="check-top-left">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center;">左侧检测<span class="check-num">(<span id="left-num">0</span>/4)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>左前车轮</th>
+                                        <th id="left-one" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>左后车轮</th>
+                                        <th id="left-two" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>左前车窗</th>
+                                        <th id="left-three" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>左前车门</th>
+                                        <th id="left-four" class="check-item working">进行中</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="check" id="check-top-right">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center;">右侧检测<span class="check-num">(<span id="right-num">0</span>/4)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>右前车轮</th>
+                                        <th id="right-one" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>右后车轮</th>
+                                        <th id="right-two" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>右前车窗</th>
+                                        <th id="right-three" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>右前车门</th>
+                                        <th id="right-four" class="check-item working">进行中</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="check" id="check-chetou">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center;">车头检测<span class="check-num">(<span id="tou-num">0</span>/4)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>车头灯</th>
+                                        <th id="tou-one" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>前保杠</th>
+                                        <th id="tou-two" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>车头标</th>
+                                        <th id="tou-three" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>雨刮挡板</th>
+                                        <th id="tou-four" class="check-item working">进行中</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="check" id="check-chewei">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center;">车尾及车顶检测<span class="check-num">(<span id="wei-num">0</span>/4)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>大窗</th>
+                                        <th id="wei-one" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>行李架</th>
+                                        <th id="wei-two" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>车尾标</th>
+                                        <th id="wei-three" class="check-item working">进行中</th>
+                                    </tr>
+                                    <tr>
+                                        <th>车尾灯</th>
+                                        <th id="wei-four" class="check-item working">进行中</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="success" class="liangbian">
+            <div class="left-top blue">今日任务完成情况</div>
+            <div class="left-center">
+                <div id="right-center-top">
+                    <div id="right-plan" class="cal-chanliang">
+                        <p class="blue">今日计划产量</p>
+                        <div class="chanliang-block color_white">500</div>
+                    </div>
+                    <div id="right-plan" class="cal-chanliang">
+                        <p class="blue">今日实际产量</p>
+                        <div class="chanliang-block color_white">132</div>
+                    </div>
+                    <div id="right-plan" class="cal-chanliang">
+                        <p class="blue">CAL上线</p>
+                        <div class="chanliang-block color_white">125</div>
+                    </div>
+                    <div class="chart-content">
+                        <p class="blue">完成率</p>
+                        <div class="chart-wrapper">
+                            <canvas id="complete" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <p class="blue">FTT通过率</p>
+                        <div class="chart-wrapper">
+                            <canvas id="pass" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-content"></div>
+                </div>
+                <!-- <div class="right-chart">
+                        <div class="chart-content">
+                            <p class="blue">完成率</p>
+                            <div class="chart-wrapper">
+                                <canvas id="complete" width="150" height="150"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <p class="blue">FTT通过率</p>
+                            <div class="chart-wrapper">
+                                <canvas id="pass" width="150" height="150"></canvas>
+                            </div>
+                        </div>
+                </div> -->
+                <div class="right-ques">
+                    <p class="blue">不良问题排行</p>
+                    <table class="table table-bordered" id="ques-table">
+                        <thead>
+                            <tr>
+                                <td>排序</td>
+                                <td>问题描述</td>
+                                <td>次数</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>左后门框凸包</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>车头灯类型错误</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>行李架颜色错误</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>左前门板胶线不平</td>
+                                <td>3</td>
+                            </tr><tr>
+                                <td>5</td>
+                                <td>EMK标识错误</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="fail" class="liangbian hidden">
+            <div class="left-top color-red font-bold">外饰自动检测异常情况</div>
+            <div id="ques-wrapper">
+                <div id="ques1" class="ques">
+                    <div class="title">
+                        <span class="color-red under">问题1：左前车轮未安装雷达</span>
+                        <span class="pending">待处理</span>
+                    </div>
+                    <img src="{{ url_for('static',filename='img/ques1.png') }}" alt="问题1" style="height: 200px;">
+                </div>
+                <div id="ques2" class="ques hidden">
+                    <div class="title">
+                        <span class="color-red under">问题2：右前车轮未安装雷达</span>
+                        <span class="pending">待处理</span>
+                    </div>
+                    <img src="{{ url_for('static',filename='img/ques2.png') }}" alt="问题2" style="height: 200px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" action="javascript:void(0)" method="POST" enctype="multipart/form-data"
+        style="margin-top:20px">
+        <div class="control-group">
+            <label class="control-label" for="file">选择演示视频</label>
+            <div class="controls">
+                <input type="file" name="file" id="demo-file" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="btn-run">上传并运行</button>
+            </div>
+        </div>
+    </form>
+    <div style="text-align: left;margin-top: 20px;margin-bottom: 20px;margin-left: 76px;">
+        <span style="margin-right: 30px;">进入移动端</span>
+        <a style="padding: 4px;background-color: white;color: black;font-size: 14px;" href="https://www.figma.com/proto/MgVxYxS6yIk2qvlbTrbQTr/Untitled?type=design&node-id=6-468&t=xIBHSwje1I9562M8-9&scaling=min-zoom&page-id=1%3A3&starting-point-node-id=6%3A468&show-proto-sidebar=1">移动端小程序</a>
+    </div>
+        
+        
+<iframe id="id-iframe" name="nm-iframe" style="display: none;"></iframe>
+</body>
+
+<script src="https://cdn.staticfile.org/Chart.js/3.9.1/chart.js"></script>
+<script>
+    const ctx = document.getElementById('complete');
+    const data = {
+      labels: [
+        '完成数',
+        '未完成数'
+      ],
+      datasets: [{
+        label: '完成率',
+        data: [132, 368],
+        backgroundColor: [
+          'rgb(54, 162, 235)',
+          '#808080',
+        ],
+        hoverOffset: 4
+      }]
+    };
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {
+        responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+        maintainAspectRatio: false,// 保持图表原有比例
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+                    }
+              }]
+          },
+          plugins: {
+              legend: {
+                  labels: {
+                      color: "#dedbdb",
+                      pointStyleWidth: 10
+                  }
+              }
+          }
+      }
+    };
+    const myChart = new Chart(ctx, config);
+
+
+    const passctx = document.getElementById('pass');
+    const passdata = {
+      labels: [
+        '通过数',
+        '未通过数'
+      ],
+      datasets: [{
+        label: '完成率',
+        data: [126, 6],
+        backgroundColor: [
+          'rgb(54, 162, 235)',
+          'rgb(255, 99, 132)',
+        ],
+        hoverOffset: 4
+      }]
+    };
+    const passconfig = {
+      type: 'pie',
+      data: passdata,
+      options: {
+        responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+        maintainAspectRatio: false,// 保持图表原有比例
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+                    }
+              }]
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    color: "#dedbdb"
+                }
+            }
+        }
+      }
+    };
+    const passmyChart = new Chart(passctx, passconfig);
+    // function getAjaxData() {
+    //   // 1、创建XMLHttpRequest实例对象
+    //   var xhr = new XMLHttpRequest()
+    //   // 2、打开一个连接
+    //   xhr.open('get','http://localhost:5000/demo_type')
+    //   // 3、设置请求头的格式(这里不需要)
+    //   // requestHeader()
+    //   // 4、发送请求
+    //   xhr.send()
+    //   // 5、接受响应数据
+    //   xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         console.log('resp', xhr.responseText);
+            
+    //         var successPart = document.getElementById('success');;
+    //         var failPart = document.getElementById('fail');;
+    //         if (xhr.responseText == "pending") {
+    //             return;
+    //         }
+    //         if (xhr.responseText == "success") {
+    //             successPart.className = "liangbian";
+    //             failPart.className = "hidden";
+    //             return;
+    //         }
+    //         if (xhr.responseText == "fail") {
+    //             successPart.className = "hidden";
+    //             failPart.className = "liangbian";
+    //             return;
+    //         }
+    //     }
+    //   }
+    // }
+
+    function refreshLoading() {
+        var top = document.getElementById('body-top');
+        var status = top.dataset.status;
+        if (!status) {
+            return;
+        }
+        var loadingNumItem = document.getElementById("loading-num");
+        var loadingNum = loadingNumItem.innerText;
+        // if (status == "success") {
+        //     refreshSuccess();
+        // } else {
+        //     refreshFail();
+        // }
+
+        var successPart = document.getElementById('success');;
+        var failPart = document.getElementById('fail');;
+        if (loadingNum == 0) {
+            loadingNumItem.innerText = "4";
+            var chetou = document.getElementById("check-chetou");
+            var checkNum = chetou.getElementsByClassName("check-num");
+            checkNum[0].innerText = "4/4";
+            var checkItemList = chetou.getElementsByClassName("check-item");
+            for (let index = 0; index < checkItemList.length; index++) {
+                const element = checkItemList[index];
+                element.className = "check-item worker-success";
+                element.innerText = "通过"
+            }
+        } else if (loadingNum == 4) {
+            if (status == "fail") {
+                successPart.className = "hidden";
+                failPart.className = "liangbian";
+            }
+
+            loadingNumItem.innerText = "8";
+            var chetou = document.getElementById("check-top-left");
+            var checkNum = chetou.getElementsByClassName("check-num");
+            checkNum[0].innerText = "4/4";
+            var checkItemList = chetou.getElementsByClassName("check-item");
+            for (let index = 0; index < checkItemList.length; index++) {
+                const element = checkItemList[index];
+                element.className = "check-item worker-success";
+                element.innerText = "通过";
+                
+                if (status == "fail" && index == 0) {
+                    element.className = "check-item worker-fail";
+                    element.innerText = "异常";
+                }
+            }
+        } else if (loadingNum == 8) {
+            loadingNumItem.innerText = "12";
+            var chetou = document.getElementById("check-top-right");
+            var checkNum = chetou.getElementsByClassName("check-num");
+            checkNum[0].innerText = "4/4";
+            var checkItemList = chetou.getElementsByClassName("check-item");
+            for (let index = 0; index < checkItemList.length; index++) {
+                const element = checkItemList[index];
+                element.className = "check-item worker-success";
+                element.innerText = "通过";
+                                
+                if (status == "fail" && index == 0) {
+                    element.className = "check-item worker-fail";
+                    element.innerText = "异常";
+                }
+            }
+            var ques2 = document.getElementById("ques2");
+            ques2.className = "ques";
+
+        } else if (loadingNum == 12) {
+            loadingNumItem.innerText = "16";
+            var chetou = document.getElementById("check-chewei");
+            var checkNum = chetou.getElementsByClassName("check-num");
+            checkNum[0].innerText = "4/4";
+            var checkItemList = chetou.getElementsByClassName("check-item");
+            for (let index = 0; index < checkItemList.length; index++) {
+                const element = checkItemList[index];
+                element.className = "check-item worker-success";
+                element.innerText = "通过"
+            }
+            var loadingItem = document.getElementById("loading-item");
+            if (status == "success") {
+                loadingItem.className = "loading-success loading";
+                loadingItem.innerText = '检测完成(已检测16/16)';
+            } else {
+                loadingItem.className = "loading-fail loading";
+                loadingItem.innerText = '检测出2项问题，请即刻处理';
+            }
+
+        } else if (loadingNum == 16) {
+            return;
+        }
+    }
+    
+    window.onload = function() {setInterval(() => {
+        refreshLoading();
+    }, "1000")};
+
+    var runBtn = document.getElementById("btn-run");
+    runBtn.addEventListener("click", function() {
+        var fileD = document.getElementById("demo-file");
+        if (fileD.files.length > 0 ) {
+            var fileName = fileD.files[0].name;
+            window.location.href = window.location.origin + "/?from=" + fileName;
+        } else {
+            alert("请选择演示视频");
+        }
+    })
+    // run.addEventListener("change", function() {
+    //             if(myfile.files[0] == undefined) {
+    //                 alert('未上传任何文件！');
+    //             } else {
+    //                 //获取上传文件的文件名
+    //                 for(let i = 0; i < myfile.files.length; i++) {
+    //                     div.innerHTML = div.innerHTML +
+    //                     '<span>文件名：'
+    //                     + myfile.files[i].name 
+    //                     + '</span><br>';
+    //                 }
+    //             }});
+</script>
+<style>
+    body {
+        background-color: royalblue;
+
+    }
+
+    .color_burlywood {
+        color: burlywood;
+        font-weight: bold;
+    }
+
+
+    .color_white {
+        color: white;
+        font-weight: bold;
+    }
+
+    #loading-item {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .loading-pending {
+        background-color: #808080;
+    }
+
+    .loading-working {
+        background-color: orange;
+    }
+
+    .loading-success {
+        background-color: green;
+    }
+
+    .loading-fail {
+        background-color: red;
+    }
+
+    .top {
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        padding: 10px;
+        text-decoration: underline;
+    }
+
+    .liangbian {
+        vertical-align: top;
+        text-align: center;
+        display: inline-block;
+        width: 40%;
+        margin: 20px;
+        border: 1px solid white;
+        height: 650px;
+    }
+
+    .left-top {
+        text-align: center;
+        color: burlywood;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid white;
+    }
+
+
+    #cal-content {
+        text-align: center;
+    }
+
+    #left-center-top {
+        text-align: center;
+        margin: 10px;
+    }
+
+    #right-center-top {
+        text-align: center;
+        margin: 10px;
+    }
+
+    .cal-chanliang {
+        display: inline-block;
+        width: 30%;
+    }
+
+    .chexing {
+        width: 40%;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .vin {
+        width: 40%;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .loading {
+        text-align: center;
+        display: inline-block;
+        width: 80%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .check {
+        display: inline-block;
+        width: 40%;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: white;
+    }
+
+    .blue {
+        color: skyblue;
+        font-weight: bold;
+    }
+
+    .right-plan {
+        display: inline-block;
+        width: 30%;
+    }
+
+    .chart-content {
+        display: inline-block;
+        width: 45%;
+        margin-top: 10px;
+    }
+
+    .right-chart {
+        text-align: center;
+    }
+
+    #ques-table {
+        color: white;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+
+    .right-ques {
+        /* margin-top: 10px; */
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .color-red {
+        color: red;
+    }
+
+    .font-bold {
+        font-weight: bold;
+    }
+
+    .ques {
+        width: 80%;
+        margin: 0 auto;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .title {
+    font-size: 14px;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    }
+
+    .pending {
+        background-color: burlywood;
+        padding: 4px;
+        cursor:pointer；
+    }
+
+    .processed {
+        background-color: #808080;
+        padding: 4px;
+        color: white;
+    }
+
+    .under {
+        text-decoration: underline;
+    }
+
+    .working {
+        color: #dedbdb;
+    }
+
+    .worker-success {
+        color: rgb(190, 243, 190);
+    }
+
+    .worker-fail {
+        color: red;
+    }
+
+</style>
+
+</html>

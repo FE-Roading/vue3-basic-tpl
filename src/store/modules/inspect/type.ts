@@ -4,16 +4,13 @@ export enum CheckedStatus {
   pending
 }
 
-export type PassedItemType = {
+export type InspectItemType = {
   id: number
   title: string
   status: CheckedStatus
+  module: string
   problem?: string
   image?: string
 }
 
-export type ProblemsRankOfBad = {
-  index: number
-  title: string
-  count: number
-}
+export type MockInspectFailedItemType = Required<Pick<InspectItemType, "id" | "image" | "problem">>
