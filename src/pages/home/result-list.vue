@@ -27,7 +27,7 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
   <div class="passed-list">
     <div class="title">
       <span class="title-left">{{ title }}</span>
-      <span class="title-right">{{ validItems.length }}/{{ passedCount }}</span>
+      <span class="title-right">{{ passedCount }}/{{ validItems.length }}</span>
     </div>
     <ElScrollbar class="list">
       <div class="list-item" v-for="item in validItems">
