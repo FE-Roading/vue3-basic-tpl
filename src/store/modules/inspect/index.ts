@@ -42,7 +42,6 @@ export const useInspectStore = defineStore({
         } else {
           const inspectItem = this.inspectedItems[this.inspectedIndex]
           this.inspectedItems[this.inspectedIndex].status = CheckedStatus.succeeded
-          console.log(inspectItem.id, mockedFailedItemsId, mockedFailedItemsId.includes(inspectItem.id))
           if (mockedFailedItemsId.includes( inspectItem.id)) {
             const failedItem = mockedFailedItems.find(item => item.id == inspectItem.id)
 

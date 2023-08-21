@@ -4,6 +4,8 @@ import { ElScrollbar, } from "element-plus"
 
 import { InspectItemType, CheckedStatus } from "@/store/modules/inspect/type"
 import passedIconUri from "@/assets/images/inspect/success.png"
+import pendingIconUri from "@/assets/images/inspect/pending.png"
+
 
 type IndexProps = {
   title?: string
@@ -31,8 +33,8 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
       <div class="list-item" v-for="item in validItems">
         <span class="list-item-title">{{ item.title }}</span>
         <template v-if="isStarted">
-          <img :src="passedIconUri" v-if="item.status == CheckedStatus.succeeded" />
-          
+          <img class="list-item-icon" :src="passedIconUri" v-if="item.status == CheckedStatus.succeeded" />
+          <img class="list-item-icon" :src="pendingIconUri" v-else-if="item.status == CheckedStatus.pending" />
         </template>
         <span v-else class="list-item-pending">--</span>
       </div>
@@ -105,6 +107,10 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
       &-pending {
         color: #666;
         font-size: 24px;
+      }
+
+      &-icon {
+        width: 20px;
       }
     }
   }
