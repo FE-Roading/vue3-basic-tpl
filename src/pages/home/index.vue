@@ -68,9 +68,9 @@ function onBeforeUpload(raw: UploadRawFile) {
 <template>
   <div class="home-pg">
     <Header class="home-header"/>
-    <ElUpload class="home-uploader" :before-upload="onBeforeUpload">
+    <ElUpload class="home-uploader" :before-upload="onBeforeUpload" :disabled="!isFinished && !isPending">
       <template #trigger>
-        <ElButton type="primary">上传演示视频并运行</ElButton>
+        <ElButton type="primary" :disabled="!isFinished && !isPending">上传演示视频并运行</ElButton>
       </template>
     </ElUpload>
     <div class="home-body">
