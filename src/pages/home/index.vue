@@ -1,15 +1,17 @@
 <script setup lang="ts" name="home">
-import { ElRow, ElCol } from "element-plus"
+import { ElRow, ElCol, ElTable, ElTableColumn } from "element-plus"
 
 import Header from "@/components/header/index.vue"
 
-import { CheckedStatus, PassedItemType } from "./type"
+import { CheckedStatus, PassedItemType, ProblemsRankOfBad } from "./type"
 import ResultList from "./result-list.vue"
+import RateList from "./rate-list.vue"
 
 import stationStatusTitleUri from "@/assets/images/measure/station-status-title.png?uri"
 import taskStatusTitleUri from "@/assets/images/measure/task-status-title.png?uri"
 import carIconUri from "@/assets/images/measure/car.png?uri"
 import vinIconUri from "@/assets/images/measure/vin.png?uri"
+import { ref } from "vue"
 
 const checkItems: { 
   head: PassedItemType[]
@@ -57,8 +59,35 @@ const checkItems: {
   ],
 }
 
-
-
+let _problemsRankOfBad: ProblemsRankOfBad[] = [
+  {
+    index: 1,
+    title: "左后门框凸包",
+    count: 3,
+  },
+  {
+    index: 2,
+    title: "车头灯类型错误",
+    count: 2,
+  },
+  {
+    index: 2,
+    title: "行李架颜色错误",
+    count: 3,
+  },
+  {
+    index: 1,
+    title: "左前门内板胶线不平",
+    count: 2,
+  },
+  {
+    index: 1,
+    title: "EMK标识错误",
+    count: 2,
+  }
+]
+_problemsRankOfBad = _problemsRankOfBad.sort((a, b) => b.count - a.count).map((item, index) => ({ ...item, index: index + 1 }))
+const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
 
 </script>
 
@@ -115,7 +144,39 @@ const checkItems: {
       <div class="home-spacer"></div>
       <div class="home-column home-right">
         <img :src="taskStatusTitleUri" class="home-column-title" />
-
+        <ul class="hr-statistics">
+          <li class="hr-statistics-item">
+            <div class="hr-statistics-item-count">
+              500
+            </div>
+            <div class="hr-statistics-item-title">
+              今日计划产量
+            </div>
+          </li>
+          <li class="hr-statistics-item">
+            <div class="hr-statistics-item-count">
+              132
+            </div>
+            <div class="hr-statistics-item-title">
+              今日实际产量
+            </div>
+          </li>
+          <li class="hr-statistics-item">
+            <div class="hr-statistics-item-count">
+              125
+            </div>
+            <div class="hr-statistics-item-title">
+              CAL上线
+            </div>
+          </li>
+        </ul>
+        <RateList class="hr-rate" />
+        <div class="hr-rank-title">不良问题排行</div>
+        <ElTable class="hr-rank-list" row-class-name="hr-rank-row" border :data="problemsRankOfBad">
+          <ElTableColumn prop="index" label="排行" width="100" class-name="hr-rank-first"></ElTableColumn>
+          <ElTableColumn prop="title" label="问题描述"></ElTableColumn>
+          <ElTableColumn prop="count" label="次数" width="100" class-name="hr-rank-last"></ElTableColumn>
+        </ElTable>
       </div>
     </div>
   </div>
@@ -179,6 +240,15 @@ const checkItems: {
 
     &-spacer {
       width: 10px;
+    }
+
+    &-right {
+      padding-bottom: 54px;
+
+      > * {
+        margin-left: 51px;
+        margin-right: 48px;
+      }
     }
   }
 
@@ -285,8 +355,108 @@ const checkItems: {
         bottom: 0;
         left: 0;
         right: 0;
-        top: 61.5%;
+        top: 65%;
       }
+    }
+  }
+
+  .hr {
+    &-statistics {
+      flex: none;
+      margin-top: 43px;
+
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      &-item {
+        &-count {
+          font-size: 32px;
+          color: #01A7F0;
+          font-weight: 700;
+        }
+
+        &-title {
+          margin-top: 7px;
+          font-size: 26px;
+          color: #fff;
+        }
+      }
+    }
+
+    &-rate {
+      margin-top: 82px;
+      flex: none;
+    }
+
+    &-rank {
+      &-title {
+        margin-top: 58px;
+        margin-bottom: 12px;
+        flex: none;
+
+        font-size: 26px;
+        color: #01A7F0;
+        font-weight: 600;
+      }
+
+      &-list {
+        height: 0;
+        min-height: 0;
+        flex: 1;
+      }
+    }
+  } 
+
+  :deep(.el-table) {
+    width: auto;
+    background: transparent;
+
+    .cell {
+      font-size: 26px;
+      line-height: 36px;
+
+      color: #fff;
+    }
+
+    tr {
+      &:nth-last-of-type(2n) {
+        background-color: #183471;
+      }
+      &:nth-last-of-type(2n+1) {
+        background-color: #172651;
+      }
+
+      
+    }
+
+    tbody tr {
+      &:nth-of-type(1) .hr-rank-first .cell {
+        color: #C2721C;
+      }
+
+      &:nth-of-type(2) .hr-rank-first .cell {
+        color: #E3E54E;
+      }
+
+      &:nth-of-type(3) .hr-rank-first .cell {
+        color: #4FE4CA;
+      }
+    }
+
+    .hr-rank-first .cell {
+      color: #39A9FE;
+    }
+    .hr-rank-first, .hr-rank-last {
+      text-align: center;
+    }
+
+    th.el-table__cell {
+      background: #1C427E;
+      color: #80AEFF;
+      font-weight: 600;
+      
+      padding: 6px 0;
     }
   }
 }
