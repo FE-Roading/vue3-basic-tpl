@@ -61,6 +61,7 @@ export const useInspectStore = defineStore({
         }
 
         if (this.inspectCount == (this.inspectedIndex + 1)) {
+          // @ts-ignore
           clearInterval(this.inspectTimer)
         } else {
           this.inspectedIndex++
@@ -71,12 +72,6 @@ export const useInspectStore = defineStore({
     changeInspectItemStatus() {
 
     },
-    increaseCount(value = 1) {
-      this.count += value
-    },
-    decreaseCount(value = 1) {
-      this.count -= value
-    }
   }
 })
 

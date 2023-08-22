@@ -22,7 +22,7 @@
         echartInstance.value.resize()
       }
 
-      resizeTimer.value = null
+      resizeTimer.value = void 0
     }, 500)
   } 
 

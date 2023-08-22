@@ -8,8 +8,8 @@ import { CheckedStatus } from "@/store/modules/inspect/type"
 import Header from "@/components/header/index.vue"
 import ResultItem from "./result-item.vue"
 
-import carIconUri from "@/assets/images/inspect/car.png?uri"
-import vinIconUri from "@/assets/images/inspect/vin.png?uri"
+import carIconUri from "@/assets/images/inspect/car.png"
+import vinIconUri from "@/assets/images/inspect/vin.png"
 
 const store = useInspectStore()
 const { inspectedItems } = storeToRefs(store)

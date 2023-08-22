@@ -10,7 +10,6 @@ declare module 'vue' {
     Chart: typeof import('./src/components/chart/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     Header: typeof import('./src/components/header/index.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     StartBtn: typeof import('./src/components/header/start-btn.vue')['default']
