@@ -5,55 +5,24 @@ import { useRouter } from "vue-router"
 import { storeToRefs } from "pinia"
 
 import { useInspectStore } from "@/store/modules/inspect"
-
+import { CheckedStatus } from "@/store/modules/inspect/type"
 import Header from "@/components/header/index.vue"
 
-import { ProblemsRankOfBad } from "./type"
 import ResultList from "./result-list.vue"
 import RateList from "./rate-list.vue"
 import BadRankList from "./bad-rank-list.vue"
+import StatusBar from "./status-bar.vue"
 
-import stationStatusTitleUri from "@/assets/images/inspect/station-status-title.png?uri"
-import taskStatusTitleUri from "@/assets/images/inspect/task-status-title.png?uri"
-import carIconUri from "@/assets/images/inspect/car.png?uri"
-import vinIconUri from "@/assets/images/inspect/vin.png?uri"
-import { CheckedStatus } from "@/store/modules/inspect/type"
+import stationStatusTitleUri from "@/assets/images/inspect/station-status-title.png"
+import taskStatusTitleUri from "@/assets/images/inspect/task-status-title.png"
+import carIconUri from "@/assets/images/inspect/car.png"
+import vinIconUri from "@/assets/images/inspect/vin.png"
 
 const router = useRouter()
 const store = useInspectStore()
 const { inspectedIndex, inspectedItems } = storeToRefs(store)
 const isFinished = computed(() => inspectedIndex.value > 0 && inspectedItems.value.every(item => item.status != CheckedStatus.pending))
 const isPending = computed(() => inspectedIndex.value == 0)
-
-let _problemsRankOfBad: ProblemsRankOfBad[] = [
-  {
-    index: 1,
-    title: "左后门框凸包",
-    count: 3,
-  },
-  {
-    index: 2,
-    title: "车头灯类型错误",
-    count: 2,
-  },
-  {
-    index: 2,
-    title: "行李架颜色错误",
-    count: 3,
-  },
-  {
-    index: 1,
-    title: "左前门内板胶线不平",
-    count: 2,
-  },
-  {
-    index: 1,
-    title: "EMK标识错误",
-    count: 2,
-  }
-]
-_problemsRankOfBad = _problemsRankOfBad.sort((a, b) => b.count - a.count).map((item, index) => ({ ...item, index: index + 1 }))
-const problemsRankOfBad = ref<ProblemsRankOfBad[]>(_problemsRankOfBad)
 
 function onBeforeUpload(raw: UploadRawFile) {
   if (raw.name.includes("成功")) {
@@ -84,22 +53,20 @@ function onBeforeUpload(raw: UploadRawFile) {
             <div class="hl-info-item">
               <img class="hl-info-icon" :src="carIconUri" />
               <div class="hl-info-right">
-                <div class="hl-info-right-top">CX765-2</div>
+                <div class="hl-info-right-top">{{ isPending ? "--" : "CX765-2"  }}</div>
                 <div class="hl-info-right-bottom">当前检测车型</div>
               </div>
             </div>
             <div class="hl-info-item">
               <img class="hl-info-icon" :src="vinIconUri" />
               <div class="hl-info-right">
-                <div class="hl-info-right-top">2890103734933565</div>
+                <div class="hl-info-right-top">{{ isPending ? "--" : "2890103734933565"  }}</div>
                 <div class="hl-info-right-bottom">车辆VIN号</div>
               </div>
             </div>
           </div>
 
-          <div class="hl-result">
-            <span class="hl-result-text">{{ isPending ? "等待检测" : isFinished ? "检查通过" : "正在检测" }}</span>
-          </div>
+          <StatusBar class="hl-status-bar" :pending="isPending" :finished="isFinished" />
 
           <div class="hl-display">
             <ElRow :gutter="116" class="hl-result-row">
@@ -267,27 +234,8 @@ function onBeforeUpload(raw: UploadRawFile) {
       }
     }
 
-    &-result {
-      margin-top: 41px;
-      margin-bottom: 31px;
-      background-image: url("../../assets/images/inspect/passed-result-bg.png");
-      background-size: 100% 100%;
-      height: 60px;
+    &-status-bar {
       flex: none;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &-text {
-        color: white;
-        font-size: 30px;
-        letter-spacing: 10.38px;
-        font-weight: 600;
-        background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff), to(#E0BF9B ));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
     }
 
     &-display {
