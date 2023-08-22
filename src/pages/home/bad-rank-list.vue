@@ -10,7 +10,7 @@ const { badRankProblems } = storeToRefs(useInspectStore())
 <template>
   <div class="bad-rank-com">
     <div class="br-title">不良问题排行</div>
-    <ElTable class="br-list" row-class-name="br-row" border :data="badRankProblems" height="calc(100vh - 689px)">
+    <ElTable class="br-list" row-class-name="br-row" border :data="badRankProblems" height="calc(100%)">
       <ElTableColumn prop="index" label="排行" width="100" class-name="br-first"></ElTableColumn>
       <ElTableColumn prop="title" label="问题描述"></ElTableColumn>
       <ElTableColumn prop="count" label="次数" width="100" class-name="br-last"></ElTableColumn>

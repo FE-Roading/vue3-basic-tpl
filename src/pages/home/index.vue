@@ -303,6 +303,8 @@ const isPending = computed(() => inspectedIndex.value == 0)
     }
 
     &-rank {
+      height: 0;
+      min-height: 0;
       flex: 1;
     }
   } 
