@@ -1,7 +1,6 @@
 <script setup lang="ts" name="home">
-import { ref, computed, } from "vue"
-import { ElRow, ElCol, ElUpload, ElButton, UploadRawFile } from "element-plus"
-import { useRouter } from "vue-router"
+import { computed, } from "vue"
+import { ElRow, ElCol } from "element-plus"
 import { storeToRefs } from "pinia"
 
 import { useInspectStore } from "@/store/modules/inspect"
@@ -18,32 +17,17 @@ import taskStatusTitleUri from "@/assets/images/inspect/task-status-title.png"
 import carIconUri from "@/assets/images/inspect/car.png"
 import vinIconUri from "@/assets/images/inspect/vin.png"
 
-const router = useRouter()
 const store = useInspectStore()
 const { inspectedIndex, inspectedItems } = storeToRefs(store)
 const isFinished = computed(() => inspectedIndex.value > 0 && inspectedItems.value.every(item => item.status != CheckedStatus.pending))
 const isPending = computed(() => inspectedIndex.value == 0)
 
-function onBeforeUpload(raw: UploadRawFile) {
-  if (raw.name.includes("成功")) {
-    store.startInspect(true, router)
-  } else {
-    store.startInspect(false, router)
-  }
-
-  return Promise.reject()
-}
-
 </script>
 
 <template>
   <div class="home-pg">
-    <Header class="home-header"/>
-    <ElUpload class="home-uploader" :before-upload="onBeforeUpload" :disabled="!isFinished && !isPending">
-      <template #trigger>
-        <ElButton type="primary" :disabled="!isFinished && !isPending">上传演示视频并运行</ElButton>
-      </template>
-    </ElUpload>
+    <Header class="home-header" :disabled="!isFinished && !isPending" />
+
     <div class="home-body">
       <div class="home-column home-left">
         <img :src="stationStatusTitleUri" class="home-column-title" />
@@ -142,8 +126,8 @@ function onBeforeUpload(raw: UploadRawFile) {
 
     &-uploader {
       position: absolute;
-      top: 60px;
-      left: 32px;
+      top: 37px;
+      left: 29px;
     }
 
     &-body {

@@ -20,19 +20,19 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
 </script>
 <template>
   <div class="test-bad-pg">
-    <Header class="tb-header" showTitle/>
+    <Header class="tb-header" showTitle :disabled="inspectPercentage > 0 && inspectPercentage < 99"/>
 
     <div class="tb-body">
       <div class="tb-nav">
         <div class="tb-info tb-info-first">
           <img class="tb-info-icon" :src="carIconUri" />
           <div class="tb-info-title">当前检测车型</div>
-          <div class="tb-info-value">CX765-2</div>
+          <div class="tb-info-value">{{ inspectPercentage == 0 ? "--" : "CX765-2"  }}</div>
         </div>
         <div class="tb-info  tb-info-last">
           <img class="tb-info-icon" :src="vinIconUri" />
           <div class="tb-info-title">车辆VIN号</div>
-          <div class="tb-info-value">2890103734933565</div>
+          <div class="tb-info-value">{{ inspectPercentage == 0 ? "--" : "2890103734933565" }}</div>
         </div>
 
         <div class="tb-progress">

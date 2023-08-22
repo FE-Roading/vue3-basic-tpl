@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import StartBtn from "./start-btn.vue"
+
 import imgUri from "@/assets/images/inspect/header.png"
 
 type IndexProps = {
   showTitle?: boolean
+  disabled?: boolean
 }
-const { showTitle } = defineProps<IndexProps>()
+const { showTitle, disabled } = defineProps<IndexProps>()
 
 </script>
 
@@ -12,6 +15,7 @@ const { showTitle } = defineProps<IndexProps>()
   <div class="header">
     <img :src="imgUri" class="img">
     <div class="title" v-if="showTitle" /> 
+    <StartBtn class="header-uploader" :disabled="disabled" />
   </div>
 </template>
 
@@ -19,6 +23,7 @@ const { showTitle } = defineProps<IndexProps>()
 <style scoped lang="scss">
 .header {
   width: 100%;
+  position: relative;
 
   .img {
     width: 100%;
@@ -39,6 +44,12 @@ const { showTitle } = defineProps<IndexProps>()
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &-uploader {
+    position: absolute;
+    top: 37px;
+    left: 29px;
   }
 }
 

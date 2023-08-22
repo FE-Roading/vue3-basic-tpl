@@ -37,6 +37,9 @@ export const useInspectStore = defineStore({
     },
     startInspect(isSuccess = true, router: Router) {
       this.resetInspectItems()
+      if ((window.history.state.current || window.history.state.path) == "/failed") {
+        router.push("/")
+      }
 
       this.inspectTimer = setInterval(() => {
         if (isSuccess) {
@@ -50,7 +53,7 @@ export const useInspectStore = defineStore({
             if (failedItem) {
               this.inspectedItems[this.inspectedIndex] = {...inspectItem, ...failedItem, status: CheckedStatus.failed}
 
-              if (window.history.state.path != "/failed") {
+              if ((window.history.state.current || window.history.state.path)!= "/failed") {
                 router.push("/failed")
               }
             }
