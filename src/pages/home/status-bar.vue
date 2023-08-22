@@ -4,18 +4,20 @@ import { computed } from 'vue';
 type IndexProps = {
   pending: boolean
   finished: boolean
+  failed: boolean
 }
 
 const props = withDefaults(defineProps<IndexProps>(), {
   pending: true,
-  finished: false
+  finished: false,
+  failed: false,
 })
 
-const placeholder = computed(() => props.pending ? "等待检测" : props.finished ? "检测通过" : "正在检测")
+const placeholder = computed(() => props.pending ? "等待检测" : props.finished ? "检测通过" : props.failed ? "检测失败" : "正在检测")
 
 </script>
 <template>
-  <div :class="['status-bar-com', { 'status-bar-com-pending': pending, }]">
+  <div :class="['status-bar-com', { 'status-bar-com-pending': pending, 'status-bar-com-finished': finished, 'status-bar-com-failed': failed, }]">
     <span class="sb-text">{{ placeholder }}</span>
   </div>
 </template>
@@ -29,7 +31,7 @@ const placeholder = computed(() => props.pending ? "等待检测" : props.finish
     justify-content: center;
     align-items: center;
 
-    background-image: url("../../assets/images/inspect/status-succeeded-bg.png");
+    background-image: url("../../assets/images/inspect/status-inspecting-bg.png");
     background-size: 100% 100%;
 
     .sb-text {
@@ -49,6 +51,26 @@ const placeholder = computed(() => props.pending ? "等待检测" : props.finish
         color: #AAA;
         background-image: none;
         -webkit-text-fill-color: #AAA;
+      }
+    }
+
+    &-finished {
+      background-image: url("../../assets/images/inspect/status-succeeded-bg.png");
+
+      .sb-text {
+        color: #02C825;
+        background-image: none;
+        -webkit-text-fill-color: #02C825;
+      }
+    }
+
+    &-failed {
+      background-image: url("../../assets/images/inspect/status-failed-bg.png");
+
+      .sb-text {
+        color: #FF2828;
+        background-image: none;
+        -webkit-text-fill-color: #FF2828;
       }
     }
   }

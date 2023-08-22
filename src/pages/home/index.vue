@@ -21,6 +21,7 @@ const store = useInspectStore()
 const { inspectedIndex, inspectedItems } = storeToRefs(store)
 const isFinished = computed(() => inspectedIndex.value > 0 && inspectedItems.value.every(item => item.status != CheckedStatus.pending))
 const isPending = computed(() => inspectedIndex.value == 0)
+const isFailed = computed(() => inspectedItems.value.some(item => item.status == CheckedStatus.failed))
 
 </script>
 
@@ -50,7 +51,7 @@ const isPending = computed(() => inspectedIndex.value == 0)
             </div>
           </div>
 
-          <StatusBar class="hl-status-bar" :pending="isPending" :finished="isFinished" />
+          <StatusBar class="hl-status-bar" :pending="isPending" :finished="isFinished" :failed="isFailed" />
 
           <div class="hl-display">
             <ElRow :gutter="116" class="hl-result-row">

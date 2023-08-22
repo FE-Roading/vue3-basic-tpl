@@ -13,6 +13,7 @@ type StateType = {
   inspectCount: number
   inspectedItems: InspectItemType[]
   badRankProblems: BadProblemsRankItemType[]
+  isFailed: boolean
 }
 
 const mockedFailedItemsId = mockedFailedItems.map(item => item.id)
@@ -27,6 +28,7 @@ export const useInspectStore = defineStore({
       inspectedItems,
       inspectedIndex: 0,
       badRankProblems: mockedBadRankProblems,
+      isFailed: false,
     }
   },
   actions: {
@@ -34,6 +36,7 @@ export const useInspectStore = defineStore({
       this.inspectedItems = getInspectItems()
       this.inspectCount = this.inspectedItems.length
       this.inspectedIndex = 0
+      this.isFailed = false
     },
     startInspect(isSuccess = true, router: Router) {
       this.resetInspectItems()
@@ -53,8 +56,11 @@ export const useInspectStore = defineStore({
             if (failedItem) {
               this.inspectedItems[this.inspectedIndex] = {...inspectItem, ...failedItem, status: CheckedStatus.failed}
 
-              if ((window.history.state.current || window.history.state.path)!= "/failed") {
-                router.push("/failed")
+              if (this.isFailed == false && (window.history.state.current || window.history.state.path)!= "/failed") {
+                this.isFailed = true
+                setTimeout(() => {
+                  router.push("/failed")
+                }, 1000)
               }
             }
           }
