@@ -36,7 +36,7 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
         </div>
 
         <div class="tb-progress">
-          <ElProgress :percentage="inspectPercentage" :stroke-width="56" color="#1256CE" striped striped-flow :show-text="false" />
+          <ElProgress :percentage="inspectPercentage" :stroke-width="56" color="#1256CE" :show-text="false" />
           <div class="tb-progress-content">
             <span class="tb-progress-status tb-progress-content-item">已检测出项<span class="tb-progress-status-count">{{ failedCount }}</span>问题，请即刻处理</span>
             <span class="tb-progress-fixed tb-progress-content-item">已处理<span class="tb-progress-fixed-count">0/{{ failedCount }}</span></span>
@@ -154,6 +154,7 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
       height: 56px;
       background: #1E4183;
       overflow: hidden;
+      --el-border-color-lighter: #1E4183;
 
       &-content {
         position: absolute;

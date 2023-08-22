@@ -50,8 +50,8 @@ export const useInspectStore = defineStore({
             if (failedItem) {
               this.inspectedItems[this.inspectedIndex] = {...inspectItem, ...failedItem, status: CheckedStatus.failed}
 
-              if (window.history.state.path != "/bad") {
-                router.push("/bad")
+              if (window.history.state.path != "/failed") {
+                router.push("/failed")
               }
             }
           }
