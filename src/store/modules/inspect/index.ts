@@ -5,7 +5,7 @@ import { store } from '../../index'
 
 import { InspectItemType, CheckedStatus, BadProblemsRankItemType } from "./type"
 
-import { getInspectItems, mockedFailedItems, mockedBadRankProblems } from "./data"
+import { getInspectItems, mockedFailedItems, mockedBadRankProblems, inspectOrderIndexes } from "./data"
 
 type StateType = {
   inspectTimer?: NodeJS.Timer
@@ -45,16 +45,19 @@ export const useInspectStore = defineStore({
       }
 
       this.inspectTimer = setInterval(() => {
+        const inspectId = inspectOrderIndexes[this.inspectedIndex]
+        const inspectedIndex = this.inspectedItems.findIndex(item => item.id == inspectId)
+
         if (isSuccess) {
-          this.inspectedItems[this.inspectedIndex].status = CheckedStatus.succeeded
+          this.inspectedItems[inspectedIndex].status = CheckedStatus.succeeded
         } else {
-          const inspectItem = this.inspectedItems[this.inspectedIndex]
-          this.inspectedItems[this.inspectedIndex].status = CheckedStatus.succeeded
+          const inspectItem = this.inspectedItems[inspectedIndex]
+          this.inspectedItems[inspectedIndex].status = CheckedStatus.succeeded
           if (mockedFailedItemsId.includes( inspectItem.id)) {
             const failedItem = mockedFailedItems.find(item => item.id == inspectItem.id)
 
             if (failedItem) {
-              this.inspectedItems[this.inspectedIndex] = {...inspectItem, ...failedItem, status: CheckedStatus.failed}
+              this.inspectedItems[inspectedIndex] = {...inspectItem, ...failedItem, status: CheckedStatus.failed}
 
               if (this.isFailed == false && (window.history.state.current || window.history.state.path)!= "/failed") {
                 this.isFailed = true

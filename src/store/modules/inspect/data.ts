@@ -232,3 +232,29 @@ const badRankProblems: BadProblemsRankItemType[] = [
 ].sort((a, b) => b.count - a.count).map((item, index) => ({ ...item, index: index + 1 }))
 
 export const mockedBadRankProblems = badRankProblems
+
+function genInspectIndex() {
+  const groups = new Set(allInspectItems.map(item => item.module))
+  const groupItem: Record<string, InspectItemType[]> = {}
+  let maxLen = 0
+  groups.forEach(module => {
+    groupItem[module] = allInspectItems.filter(item => item.module == module)
+    if (groupItem[module].length > maxLen) {
+      maxLen = groupItem[module].length
+    }
+  })
+
+  const inspectIndexes: number[] = []
+
+  for(let i = 0; i < maxLen; i++) {
+    groups.forEach(module => {
+      if (groupItem[module][i]) {
+        inspectIndexes.push(groupItem[module][i].id)
+      }
+    })
+  }
+
+  return inspectIndexes
+}
+
+export const inspectOrderIndexes = genInspectIndex()
