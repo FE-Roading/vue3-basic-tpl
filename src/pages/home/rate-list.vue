@@ -3,10 +3,10 @@ import Chart from "@/components/chart/index.vue"
 import genPassRateOptions from "./options/passRate"
 import genFttPassRateOptions from "./options/fttPassRate"
 
-const passRateOptions = genPassRateOptions(75, 100, "完成率")
+const passRateOptions = genPassRateOptions(75, 100)
 const fttPassedCount = 7
 const fttTotoalCount = 89
-const fttPassRateOptions = genFttPassRateOptions(fttPassedCount, fttTotoalCount, "FTT通过率")
+const fttPassRateOptions = genFttPassRateOptions(fttPassedCount, fttTotoalCount)
 
 </script>
 <template>

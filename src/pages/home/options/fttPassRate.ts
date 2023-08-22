@@ -1,8 +1,4 @@
-import * as echarts from 'echarts'
-
-export default function genFttPassRateOptions(count: number, total: number, title: string) {
-	const rate = Number((count / (total || 1)) * 100).toFixed(0)
-
+export default function genFttPassRateOptions(count: number, total: number) {
 	return {
 		title: {
 			text: `{a|${count}}{s|｜}{b|${ total }}`,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
+// @ts-ignore
 import noExist from "@/assets/images/404.svg?component"
 
 defineOptions({

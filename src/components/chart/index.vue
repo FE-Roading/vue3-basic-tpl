@@ -6,7 +6,7 @@
   type IndexProps = {
     options: any   // echart options 主要类型校验问题，因此直接写入any
 
-    initCb?: (echarts, instace: echarts.ECharts) => void
+    initCb?: (echarts: any, instace: echarts.ECharts) => void
   }
 
   const props = defineProps<IndexProps>()

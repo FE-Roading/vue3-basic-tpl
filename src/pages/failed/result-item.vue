@@ -3,7 +3,6 @@ import { computed } from "vue"
 import { ElCarousel, ElCarouselItem } from "element-plus"
 
 import { InspectItemType, CheckedStatus } from "@/store/modules/inspect/type"
-import passedIconUri from "@/assets/images/inspect/success.png"
 
 type IndexProps = {
   title?: string
