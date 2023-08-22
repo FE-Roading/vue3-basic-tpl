@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ElTable, ElTableColumn } from "element-plus"
 import { storeToRefs } from "pinia";
+import { Vue3SeamlessScroll } from "vue3-seamless-scroll"
 
 import { useInspectStore } from "@/store/modules/inspect"
 
@@ -10,11 +10,18 @@ const { badRankProblems } = storeToRefs(useInspectStore())
 <template>
   <div class="bad-rank-com">
     <div class="br-title">不良问题排行</div>
-    <ElTable class="br-list" row-class-name="br-row" border :data="badRankProblems" height="calc(100%)">
-      <ElTableColumn prop="index" label="排行" width="100" class-name="br-first"></ElTableColumn>
-      <ElTableColumn prop="title" label="问题描述"></ElTableColumn>
-      <ElTableColumn prop="count" label="次数" width="100" class-name="br-last"></ElTableColumn>
-    </ElTable>
+    <ul class="br-row br-head">
+      <li class="br-column1">排行</li>
+      <li class="br-column2">问题描述</li>
+      <li class="br-column3">次数</li>
+    </ul>
+    <vue3-seamless-scroll :list="badRankProblems" class="br-list" :limitScrollNum="10" :delay="3000" :singleWaitTime="3000" :singleHeight="52" hover wheel>
+      <ul class="br-row" v-for="(item, index) in badRankProblems" :key="index">
+        <li class="br-column1">{{ item.index }}</li>
+        <li class="br-column2">{{ item.title }}</li>
+        <li class="br-column3">{{ item.count }}</li>
+      </ul>
+    </vue3-seamless-scroll>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -37,61 +44,71 @@ const { badRankProblems } = storeToRefs(useInspectStore())
       height: 0;
       min-height: 0;
       flex: 1;
+      overflow: hidden;
+
+      .br-row {
+        &:nth-last-of-type(2n) {
+          background-color: #183471;
+        }
+        &:nth-last-of-type(2n+1) {
+          background-color: #172651;
+        }
+
+        &:nth-of-type(1) .br-column1{
+          color: #C2721C!important;
+        }
+        &:nth-of-type(2) .br-column1 {
+          color: #E3E54E!important;
+        }
+        &:nth-of-type(3) .br-column1 {
+          color: #4FE4CA!important;
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      flex-wrap: nowrap;
+      background-color: #0D5ABB;
+      border: 1px solid #0D5ABB;
+      font-size: 24px;
+      color: #fff;
+      height: 52px;
+      line-height: 50px;
+
+      > * {
+        height: 50px;
+      }
+    }
+
+    &-head {
+      background: #183471;
+      color: #80AEFF;
+      font-weight: 600;
+      position: relative;
+      z-index: 10;
+
+      flex: none;
+    }
+
+    &-column1, &-column3 {
+      flex: none;
+      width: 100px;
+      text-align: center;
+    }
+
+    &-column2 {
+      flex: 1;
+      border-left: 1px solid #0D5ABB;
+      border-right: 1px solid #0D5ABB;
+
+      padding-left: 20px;
+    }
+
+    &-column1 {
+      color: #39A9FE;
     }
   }
 }
 
-:deep(.el-table) {
-  width: auto;
-  background: transparent;
-  --el-border-color-lighter: #0D5ABB;
-  --el-table-row-hover-bg-color: #0D5ABB;
-
-  .cell {
-    font-size: 26px;
-    line-height: 36px;
-
-    color: #fff;
-  }
-
-  tr {
-    &:nth-last-of-type(2n) {
-      background-color: #183471;
-    }
-    &:nth-last-of-type(2n+1) {
-      background-color: #172651;
-    }
-
-    
-  }
-
-  tbody tr {
-    &:nth-of-type(1) .br-first .cell {
-      color: #C2721C;
-    }
-
-    &:nth-of-type(2) .br-first .cell {
-      color: #E3E54E;
-    }
-
-    &:nth-of-type(3) .br-first .cell {
-      color: #4FE4CA;
-    }
-  }
-
-  .br-first .cell {
-    color: #39A9FE;
-  }
-  .br-first, .br-last {
-    text-align: center;
-  }
-
-  th.el-table__cell {
-    background: #1C427E;
-    color: #80AEFF;
-    font-weight: 600;
-    
-    padding: 6px 0;
-  }
-}
 </style>

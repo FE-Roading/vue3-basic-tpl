@@ -203,6 +203,31 @@ const badRankProblems: BadProblemsRankItemType[] = [
     index: 1,
     title: "EMK标识错误",
     count: 2,
+  },
+  {
+    index: 1,
+    title: "左前保和日行灯有干涉",
+    count: 2,
+  },
+  {
+    index: 1,
+    title: "泊箱盖标签错贴",
+    count: 2,
+  },
+  {
+    index: 1,
+    title: " 左侧尾灯有划痕",
+    count: 1,
+  },
+  {
+    index: 1,
+    title: "右后视镜有凹陷",
+    count: 1,
+  },
+  {
+    index: 1,
+    title: "方向盘调节费力 ",
+    count: 1,
   }
 ].sort((a, b) => b.count - a.count).map((item, index) => ({ ...item, index: index + 1 }))
 
