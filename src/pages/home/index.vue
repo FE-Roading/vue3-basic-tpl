@@ -1,20 +1,22 @@
 <script setup lang="ts" name="home">
 import { ref, computed, } from "vue"
-import { ElRow, ElCol, ElTable, ElTableColumn, ElUpload, ElButton, UploadRawFile } from "element-plus"
+import { ElRow, ElCol, ElUpload, ElButton, UploadRawFile } from "element-plus"
 import { useRouter } from "vue-router"
+import { storeToRefs } from "pinia"
+
+import { useInspectStore } from "@/store/modules/inspect"
 
 import Header from "@/components/header/index.vue"
-import { useInspectStore } from "@/store/modules/inspect"
 
 import { ProblemsRankOfBad } from "./type"
 import ResultList from "./result-list.vue"
 import RateList from "./rate-list.vue"
+import BadRankList from "./bad-rank-list.vue"
 
 import stationStatusTitleUri from "@/assets/images/inspect/station-status-title.png?uri"
 import taskStatusTitleUri from "@/assets/images/inspect/task-status-title.png?uri"
 import carIconUri from "@/assets/images/inspect/car.png?uri"
 import vinIconUri from "@/assets/images/inspect/vin.png?uri"
-import { storeToRefs } from "pinia"
 import { CheckedStatus } from "@/store/modules/inspect/type"
 
 const router = useRouter()
@@ -149,12 +151,7 @@ function onBeforeUpload(raw: UploadRawFile) {
           </li>
         </ul>
         <RateList class="hr-rate" />
-        <div class="hr-rank-title">不良问题排行</div>
-        <ElTable class="hr-rank-list" row-class-name="hr-rank-row" border :data="problemsRankOfBad">
-          <ElTableColumn prop="index" label="排行" width="100" class-name="hr-rank-first"></ElTableColumn>
-          <ElTableColumn prop="title" label="问题描述"></ElTableColumn>
-          <ElTableColumn prop="count" label="次数" width="100" class-name="hr-rank-last"></ElTableColumn>
-        </ElTable>
+        <BadRankList class="hr-rank" />
       </div>
     </div>
   </div>
@@ -374,74 +371,8 @@ function onBeforeUpload(raw: UploadRawFile) {
     }
 
     &-rank {
-      &-title {
-        margin-top: 58px;
-        margin-bottom: 12px;
-        flex: none;
-
-        font-size: 26px;
-        color: #01A7F0;
-        font-weight: 600;
-      }
-
-      &-list {
-        height: 0;
-        min-height: 0;
-        flex: 1;
-      }
+      flex: 1;
     }
   } 
-
-  :deep(.el-table) {
-    width: auto;
-    background: transparent;
-
-    .cell {
-      font-size: 26px;
-      line-height: 36px;
-
-      color: #fff;
-    }
-
-    tr {
-      &:nth-last-of-type(2n) {
-        background-color: #183471;
-      }
-      &:nth-last-of-type(2n+1) {
-        background-color: #172651;
-      }
-
-      
-    }
-
-    tbody tr {
-      &:nth-of-type(1) .hr-rank-first .cell {
-        color: #C2721C;
-      }
-
-      &:nth-of-type(2) .hr-rank-first .cell {
-        color: #E3E54E;
-      }
-
-      &:nth-of-type(3) .hr-rank-first .cell {
-        color: #4FE4CA;
-      }
-    }
-
-    .hr-rank-first .cell {
-      color: #39A9FE;
-    }
-    .hr-rank-first, .hr-rank-last {
-      text-align: center;
-    }
-
-    th.el-table__cell {
-      background: #1C427E;
-      color: #80AEFF;
-      font-weight: 600;
-      
-      padding: 6px 0;
-    }
-  }
 }
 </style>

@@ -3,15 +3,16 @@ import { Router } from 'vue-router'
 
 import { store } from '../../index'
 
-import { InspectItemType, CheckedStatus } from "./type"
+import { InspectItemType, CheckedStatus, BadProblemsRankItemType } from "./type"
 
-import { getInspectItems, mockedFailedItems } from "./data"
+import { getInspectItems, mockedFailedItems, mockedBadRankProblems } from "./data"
 
 type StateType = {
   inspectTimer?: NodeJS.Timer
   inspectedIndex: number
   inspectCount: number
   inspectedItems: InspectItemType[]
+  badRankProblems: BadProblemsRankItemType[]
 }
 
 const mockedFailedItemsId = mockedFailedItems.map(item => item.id)
@@ -25,6 +26,7 @@ export const useInspectStore = defineStore({
       inspectCount: inspectedItems.length,
       inspectedItems,
       inspectedIndex: 0,
+      badRankProblems: mockedBadRankProblems,
     }
   },
   actions: {

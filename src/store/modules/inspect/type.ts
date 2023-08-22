@@ -14,3 +14,9 @@ export type InspectItemType = {
 }
 
 export type MockInspectFailedItemType = Required<Pick<InspectItemType, "id" | "image" | "problem">>
+
+export type BadProblemsRankItemType = {
+  index: number
+  title: string
+  count: number
+}

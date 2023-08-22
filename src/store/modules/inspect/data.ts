@@ -1,4 +1,4 @@
-import { InspectItemType, CheckedStatus, MockInspectFailedItemType } from "./type"
+import { InspectItemType, CheckedStatus, MockInspectFailedItemType, BadProblemsRankItemType } from "./type"
 import failedLeftFront from "@/assets/images/inspect/failed-left-front.png"
 import failedRightFront from "@/assets/images/inspect/failed-right-front.png"
 
@@ -178,3 +178,32 @@ export const mockedFailedItems: MockInspectFailedItemType[] = [
   }
 ]
 
+const badRankProblems: BadProblemsRankItemType[] = [
+  {
+    index: 1,
+    title: "左后门框凸包",
+    count: 3,
+  },
+  {
+    index: 2,
+    title: "车头灯类型错误",
+    count: 2,
+  },
+  {
+    index: 2,
+    title: "行李架颜色错误",
+    count: 3,
+  },
+  {
+    index: 1,
+    title: "左前门内板胶线不平",
+    count: 2,
+  },
+  {
+    index: 1,
+    title: "EMK标识错误",
+    count: 2,
+  }
+].sort((a, b) => b.count - a.count).map((item, index) => ({ ...item, index: index + 1 }))
+
+export const mockedBadRankProblems = badRankProblems

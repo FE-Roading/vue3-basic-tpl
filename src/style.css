@@ -60,7 +60,3 @@ ul, ol {
     height: 0;
   }
 }
-
-:root {
-  --el-border-color-lighter: #0D5ABB;
-}
