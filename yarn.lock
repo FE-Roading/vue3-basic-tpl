@@ -1132,10 +1132,9 @@ vue-tsc@^1.8.5:
     "@vue/typescript" "1.8.8"
     semver "^7.3.8"
 
-vue3-seamless-scroll@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmmirror.com/vue3-seamless-scroll/-/vue3-seamless-scroll-2.0.1.tgz#7b2d44afe94d545a2fe4affe8f81b884fc713268"
-  integrity sha512-mI3BaDU3pjcPUhVSw3/xNKdfPBDABTi/OdZaZqKysx4cSdNfGRbVvGNDzzptBbJ5S7imv5T55l6x/SqgnxKreg==
+"vue3-seamless-scroll@git+ssh://git@github.com:FE-Roading/vue3-seamless-scroll.git":
+  version "2.0.2"
+  resolved "git+ssh://git@github.com:FE-Roading/vue3-seamless-scroll.git#dd24bc602af00bc57f72fea559d8128680dad51e"
   dependencies:
     throttle-debounce "5.0.0"
 
