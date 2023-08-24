@@ -58,7 +58,7 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
         <div class="tb-result-spacer" />
         <ElRow :gutter="39" class="tb-result-row">
           <ElCol :span="8" class="tb-result-column">
-            <ResultItem title="左侧检测" :items="inspectedItems" />
+            <ResultItem title="左侧检测" :items="inspectedItems" describe-left="35px"/>
           </ElCol>
           <ElCol :span="8" class="tb-result-column-relative">
             <ResultItem title="车顶检测" :items="inspectedItems" />

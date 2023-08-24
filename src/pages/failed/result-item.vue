@@ -7,8 +7,9 @@ import { InspectItemType, CheckedStatus } from "@/store/modules/inspect/type"
 type IndexProps = {
   title?: string
   items?: InspectItemType[]
+  describeLeft?: string
 }
-const { items, title } = withDefaults(defineProps<IndexProps>(), {
+const { items, title, describeLeft = "50px" } = withDefaults(defineProps<IndexProps>(), {
   items: () => []
 })
 const vaildItems = computed(() => items.filter(item => item.module == title && item.status == CheckedStatus.failed))
@@ -27,7 +28,7 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
     <ElCarousel autoplay class="ri-body" v-else indicator-position="none">
       <ElCarouselItem style="height: 282px;" v-for="(item, index) in vaildItems" :key="item.id" class="ri-carousel-item">
         <img :src="item.image" class="ri-carousel-image" />
-        <span class="ri-carousel-describe">{{ `问题${index+1}/${vaildItems.length} ${item.problem}` }}</span>
+        <span class="ri-carousel-describe" :style="`left: ${describeLeft };`">{{ `问题${index+1}/${vaildItems.length} ${item.problem}` }}</span>
       </ElCarouselItem>
     </ElCarousel>
   </div>
@@ -101,16 +102,18 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
     &-carousel {
       &-item {
         position: relative;
+        text-align: center;
       }
       &-image {
-        width: 100%;
+        // max-height: 100%;
         height: 100%;
+        max-width: 100%;
       }
 
       &-describe {
         position: absolute;
         bottom: 13px;
-        left: 14px;
+        left: 50px;
 
         font-size: 22px;
         color: #FFFFFF;
