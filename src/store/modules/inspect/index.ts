@@ -76,7 +76,7 @@ export const useInspectStore = defineStore({
           this.inspectedIndex++
         }
 
-      }, 500)
+      }, 250)
     },
     changeInspectItemStatus() {
 
