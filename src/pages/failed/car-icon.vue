@@ -20,7 +20,6 @@ type PositionData = {
 }
 type LineData = {
   start: PositionData
-  turning: PositionData
   stop: PositionData
 }
 
@@ -75,7 +74,6 @@ function createLines() {
 function createGauideLine(canvas: CanvasRenderingContext2D, data: LineData) {
   canvas.beginPath()
   canvas.moveTo(data.start.left, data.start.top,)
-  canvas.lineTo(data.turning.left, data.turning.top,)
   canvas.lineTo(data.stop.left, data.stop.top,)
   canvas.strokeStyle = "#01A6EE"
   canvas.lineWidth = 2
@@ -101,12 +99,8 @@ function getLineData() {
       left: size.width / 2 - 120,
       top: 68,
     },
-    turning: {
-      left: 38,
-      top: 36,
-    },
     stop: {
-      left: 0,
+      left: -10,
       top: 36,
     },
   }
@@ -115,13 +109,9 @@ function getLineData() {
       left: size.width / 2 - 60,
       top: 206,
     },
-    turning: {
-      left: 38,
-      top: size.height - 50,
-    },
     stop: {
       left: 0,
-      top: size.height - 50,
+      top: size.height,
     },
   }
   const centerBottomLineData = {
@@ -129,13 +119,9 @@ function getLineData() {
       left: size.width / 2,
       top: 190,
     },
-    turning: {
-      left: size.width / 2,
-      top: size.height * 0.6,
-    },
     stop: {
       left: size.width / 2,
-      top: size.height,
+      top: size.height - 36,
     },
   }
 
@@ -143,10 +129,6 @@ function getLineData() {
     start: {
       left: size.width / 2 + 30,
       top: 117,
-    },
-    turning: {
-      left: size.width - 38,
-      top: 36,
     },
     stop: {
       left: size.width,
@@ -158,13 +140,9 @@ function getLineData() {
       left: size.width / 2 + 86,
       top: 270,
     },
-    turning: {
-      left: size.width / 2 + 140,
-      top: size.height - 50,
-    },
     stop: {
       left: size.width,
-      top: size.height - 50,
+      top: size.height,
     },
   }
 

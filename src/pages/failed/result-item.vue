@@ -36,21 +36,18 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
 
 <style scoped lang="scss">
 .result-item {
-  height: 382px;
+  height: 100%;
   box-sizing: border-box;
-  padding-bottom: 30px;
 
   display: flex;
   flex-direction: column;
 
   &-success {
-    background-image: url("../../assets/images/inspect/result-success-bg.png");
-    background-size: 100% 100%;
+    border: 1px solid #80AEFF;
   }
 
   &-error {
-    background-image: url("../../assets/images/inspect/result-failed-bg.png");
-    background-size: 100% 100%;
+    border: 1px solid #FF2236;
   }
 
   .ri {
@@ -60,9 +57,13 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
       align-items: center;
       justify-content: space-between;
 
-      margin: 4px 20px 20px 30px;
+      box-sizing: border-box;
       height: 46px;
+      line-height: 46px;
       flex: none;
+      background-image: url("../../assets/images/inspect/result-item-head-bg.png");
+      background-size: 100% 100%;
+      padding-left: 20px;
 
       &-left {
         font-size: 24px;
@@ -91,6 +92,9 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
     &-body {
       flex: 1;
       padding: 0 20px;
+      padding-bottom: 30px;
+      background-image: url("../../assets/images/inspect/result-item-body-bg.png");
+      background-size: 100% 100%;
 
       &-empty {
         display: flex;

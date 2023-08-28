@@ -7,6 +7,7 @@ import { useInspectStore } from "@/store/modules/inspect"
 import { CheckedStatus } from "@/store/modules/inspect/type"
 import Header from "@/components/header/index.vue"
 import ResultItem from "./result-item.vue"
+import CarIcon from "./car-icon.vue"
 
 import carIconUri from "@/assets/images/inspect/car.png"
 import vinIconUri from "@/assets/images/inspect/vin.png"
@@ -47,6 +48,7 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
       </div>
 
       <div class="tb-result">
+        <CarIcon class="tb-result-car" />
         <ElRow :gutter="39" class="tb-result-row tb-result-row-first">
           <ElCol :span="8" class="tb-result-column">
             <ResultItem title="车头检测" :items="inspectedItems" />
@@ -234,13 +236,23 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
       flex: 1;
       display: flex;
       flex-direction: column;
-      background-image: url("../../assets/images/inspect/result-failed-car-bg.png");
-      background-size: calc(100% / 3 + 55px) calc(100% - 364px);
-      background-position: top center;
-      background-repeat: no-repeat;
+      position: relative;
+
+      &-car {
+        position: absolute;
+        top: 0;
+        left: calc((100% - 78px) / 3);
+        right: calc((100% - 78px) / 3);
+        bottom: calc(50% - 36px);
+      }
+
+      &-row {
+        flex: 1;
+      }
 
       &-spacer {
-        flex: 1;
+        height: 12px;
+        flex: none;
       }
     }
   }
