@@ -95,6 +95,7 @@ const { badRankProblems } = storeToRefs(useInspectStore())
       flex: none;
       width: 100px;
       text-align: center;
+      font-family: "DIN";
     }
 
     &-column2 {

@@ -73,6 +73,7 @@ const fttPassRateOptions = genFttPassRateOptions(fttPassedCount, fttTotoalCount)
           width: 40px;
           text-align: center;
           font-weight: 700;
+          font-family: "DIN";
 
           &-bad {
             color: #c80a17;

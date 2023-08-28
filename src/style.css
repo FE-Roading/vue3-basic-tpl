@@ -1,3 +1,21 @@
+@font-face {
+  font-family: DIN;
+  src: url('fonts/DIN-Bold.otf') format('opentype');
+  font-style: normal;
+  font-weight: 700 bold;
+}
+
+@font-face {
+  font-family: DIN;
+  src: url('fonts/DIN-Black.otf') format('opentype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: DIN;
+  src: url('fonts/DIN-Regular.otf') format('opentype');
+}
+
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -60,3 +78,5 @@ ul, ol {
     height: 0;
   }
 }
+
+

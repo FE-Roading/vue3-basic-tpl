@@ -12,6 +12,8 @@ export default function genFttPassRateOptions(count: number, total: number) {
 					a: {
 						color: "#c80a17",
 						fontSize: '30px',
+						fontFamily: "DIN",
+						fontWeight: "bold",
 					},
 					s: {
 						color: "#01A6EE",
@@ -20,6 +22,8 @@ export default function genFttPassRateOptions(count: number, total: number) {
 					b: {
 						color: "#01A6EE",
 						fontSize: '30px',
+						fontFamily: "DIN",
+						fontWeight: "bold",
 					}
 				}
 			},

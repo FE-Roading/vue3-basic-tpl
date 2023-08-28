@@ -78,7 +78,12 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
       }
 
       &-count {
-        color: #c80a17;
+        font-family: "DIN";
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 36px;
+        color: #FF2236;
+
         margin-right: 4px;
       }
     }

@@ -285,6 +285,9 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
 
       &-item {
         &-count {
+          font-family: "DIN";
+          font-weight: bold;
+
           font-size: 32px;
           color: #01A7F0;
           font-weight: 700;

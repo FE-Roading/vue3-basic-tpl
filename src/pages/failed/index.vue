@@ -192,9 +192,11 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
         color: #80AEFF;
 
         &-count {
-          color: #c80a17;
+          font-family: "DIN";
+          color: #FF2236;
           font-weight: 700;
           padding: 0 10px;
+          position: relative;
         }
       }
 
@@ -203,9 +205,11 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
         color: #72B0FF;
 
         &-count {
+          font-family: "DIN";
           color: #00A256;
           font-weight: 700;
           margin-left: 10px;
+          position: relative;
         }
       }
 
@@ -218,6 +222,7 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
         font-size: 22px;
 
         &-count {
+          font-family: "DIN";
           color: #fff;
         }
       }

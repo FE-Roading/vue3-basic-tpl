@@ -3,14 +3,23 @@ export default function genPassRateOptions(count: number, total: number) {
 
 	return {
 		title: {
-			text: `${rate}%`,
+			text: `{a|${rate}}{b|%}`,
 			left: 'center',
 			top: 'center',
 			textStyle: {
-				color: 'rgba(31,223,236,1)',
-				fontSize: '30px',
 				align: 'center',
-				fontFamily: 'Digital'
+				rich: {
+					a: {
+						color: "#01A6EE",
+						fontSize: '36px',
+						fontFamily: "DIN",
+						fontWeight: "bold",
+					},
+					b: {
+						color: "#01A6EE",
+						fontSize: '30px',
+					}
+				}
 			}
 		},
 		tooltip: {

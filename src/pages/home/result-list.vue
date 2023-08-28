@@ -69,12 +69,17 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
       font-size: 24px;
       color: #80AEFF;
       font-weight: 600;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &-right {
       font-size: 26px;
+      font-family: "DIN";
       color: #F3C88F;
-      font-weight: 700;
+      font-weight: bold;
     }
   }
 
