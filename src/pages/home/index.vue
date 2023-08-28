@@ -1,5 +1,5 @@
 <script setup lang="ts" name="home">
-import { computed, } from "vue"
+import { computed } from "vue"
 import { ElRow, ElCol } from "element-plus"
 import { storeToRefs } from "pinia"
 
@@ -11,6 +11,7 @@ import ResultList from "./result-list.vue"
 import RateList from "./rate-list.vue"
 import BadRankList from "./bad-rank-list.vue"
 import StatusBar from "./status-bar.vue"
+import CarIcon from "./car-icon.vue"
 
 import stationStatusTitleUri from "@/assets/images/inspect/station-status-title.png"
 import taskStatusTitleUri from "@/assets/images/inspect/task-status-title.png"
@@ -54,6 +55,7 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
           <StatusBar class="hl-status-bar" :pending="isPending" :finished="isFinished" :failed="isFailed" />
 
           <div class="hl-display">
+            <CarIcon class="hl-display-car" />
             <ElRow :gutter="116" class="hl-result-row">
               <ElCol :span="8" class="hl-result-column">
                 <ResultList title="车头检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
@@ -69,7 +71,6 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
                 <ResultList title="车尾检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
               </ElCol>
             </ElRow>
-
           </div>
         </div>
       </div>
@@ -227,16 +228,20 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
       height: 0;
       min-height: 0;
       flex: 1;
-
-      background-image: url("../../assets/images/inspect/passed-car.png");
-      background-size: calc(100% - (100% - 232px) / 3 * 2) 65%;
-      background-position: top center;
-      background-repeat: no-repeat;
-
       position: relative;
+
+      &-car {
+        position: absolute;
+        top: 0;
+        left: calc((100% - 232px) / 3);
+        right: calc((100% - 232px) / 3);
+        bottom: 35%;
+      }
     }
 
     &-result {
+      position: relative;
+      z-index: 1;
       &-row {
         height: 100%;
       }
