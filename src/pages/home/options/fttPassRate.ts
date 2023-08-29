@@ -11,17 +11,17 @@ export default function genFttPassRateOptions(count: number, total: number) {
 				rich: {
 					a: {
 						color: "#c80a17",
-						fontSize: '30px',
+						fontSize: '0.16rem',
 						fontFamily: "DIN",
 						fontWeight: "bold",
 					},
 					s: {
 						color: "#01A6EE",
-						fontSize: '20px',
+						fontSize: '0.15rem',
 					},
 					b: {
 						color: "#01A6EE",
-						fontSize: '30px',
+						fontSize: '0.16rem',
 						fontFamily: "DIN",
 						fontWeight: "bold",
 					}

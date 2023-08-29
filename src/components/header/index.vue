@@ -79,6 +79,7 @@ onUnmounted(() => {
     background-image: url("../../assets/images/inspect/title.png");
     background-position: top center;
     background-repeat: no-repeat;
+    background-size: 100%;
 
     display: flex;
     align-items: center;

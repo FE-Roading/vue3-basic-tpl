@@ -16,7 +16,7 @@ const { badRankProblems } = storeToRefs(useInspectStore())
       <li class="br-column3">次数</li>
     </ul>
     <vue3-seamless-scroll :list="badRankProblems" class="br-list" :limitScrollNum="10" :delay="3000" :singleWaitTime="3000" :singleHeight="52" hover wheel>
-      <ul class="br-row" v-for="(item, index) in badRankProblems" :key="index">
+      <ul class="br-row" v-for="(item, index) in badRankProblems" :key="index" style="height: 52px;line-height: 50px;">
         <li class="br-column1">{{ item.index }}</li>
         <li class="br-column2">{{ item.title }}</li>
         <li class="br-column3">{{ item.count }}</li>
@@ -73,8 +73,6 @@ const { badRankProblems } = storeToRefs(useInspectStore())
       border: 1px solid #0D5ABB;
       font-size: 24px;
       color: #fff;
-      height: 52px;
-      line-height: 50px;
 
       > * {
         height: 50px;

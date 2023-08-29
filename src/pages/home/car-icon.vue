@@ -4,6 +4,7 @@ import carImgUri from "@/assets/images/inspect/car-bg.png"
 
 const canvasRef = ref<HTMLCanvasElement>()
 const containerRef = ref<HTMLDivElement>()
+const carScaleRef = ref(1)
 const size = reactive({ width: 0, height: 0 })
 const carImageData = reactive<{
   width: number
@@ -44,19 +45,22 @@ function createIamge() {
       // @ts-ignore
       carImageData.height = e.target.height
       carImageData.data = this
+      carScaleRef.value = Math.min(Math.min(carImageData.height, size.height)/carImageData.height, Math.min(carImageData.width, size.width)/carImageData.width)
 
       createLines()
     }
 
     return
   }
+  carScaleRef.value = Math.min(Math.min(carImageData.height, size.height)/carImageData.height, Math.min(carImageData.width, size.width)/carImageData.width)
 
   createLines()
 }
 
 function createLines() {
   const canvas: CanvasRenderingContext2D = canvasRef.value!.getContext("2d")
-  canvas.drawImage(carImageData.data, (size.width - carImageData.width) / 2, 0)
+  canvas.clearRect(0, 0, size.width, size.height)
+  canvas.drawImage(carImageData.data, (size.width - carImageData.width * carScaleRef.value ) / 2 , 0, carImageData.width * carScaleRef.value, carImageData.height * carScaleRef.value)
 
   const {
     leftTopLineData,
@@ -97,42 +101,44 @@ function createGauideLine(canvas: CanvasRenderingContext2D, data: LineData) {
 }
 
 function getLineData() {
+  const bottomTop = Math.max(size.height - 50 * carScaleRef.value, 340 * carScaleRef.value)
+
   const leftTopLineData = {
     start: {
-      left: size.width / 2 - 120,
-      top: 68,
+      left: size.width / 2 - 120 * carScaleRef.value,
+      top: 68 * carScaleRef.value,
     },
     turning: {
-      left: 38,
-      top: 36,
+      left: 38 * carScaleRef.value,
+      top: 36 * carScaleRef.value,
     },
     stop: {
       left: 0,
-      top: 36,
+      top: 36 * carScaleRef.value,
     },
   }
   const leftBottomLineData = {
     start: {
-      left: size.width / 2 - 60,
-      top: 206,
+      left: size.width / 2 - 60 * carScaleRef.value,
+      top: 206 * carScaleRef.value,
     },
     turning: {
-      left: 38,
-      top: size.height - 50,
+      left: 38 * carScaleRef.value,
+      top: bottomTop,
     },
     stop: {
       left: 0,
-      top: size.height - 50,
+      top: bottomTop,
     },
   }
   const centerBottomLineData = {
     start: {
       left: size.width / 2,
-      top: 190,
+      top: 190 * carScaleRef.value,
     },
     turning: {
       left: size.width / 2,
-      top: size.height * 0.6,
+      top: 200 * carScaleRef.value,
     },
     stop: {
       left: size.width / 2,
@@ -142,30 +148,30 @@ function getLineData() {
 
   const rightTopLineData = {
     start: {
-      left: size.width / 2 + 30,
-      top: 117,
+      left: size.width / 2 + 30 * carScaleRef.value,
+      top: 117 * carScaleRef.value,
     },
     turning: {
-      left: size.width - 38,
-      top: 36,
+      left: size.width - 38 * carScaleRef.value,
+      top: 36 * carScaleRef.value,
     },
     stop: {
       left: size.width,
-      top: 36,
+      top: 36 * carScaleRef.value,
     },
   }
   const rightBottomLineData = {
     start: {
-      left: size.width / 2 + 86,
-      top: 270,
+      left: size.width / 2 + 86 * carScaleRef.value,
+      top: 270 * carScaleRef.value,
     },
     turning: {
-      left: size.width / 2 + 140,
-      top: size.height - 50,
+      left: size.width / 2 + 140 * carScaleRef.value,
+      top: bottomTop,
     },
     stop: {
       left: size.width,
-      top: size.height - 50,
+      top: bottomTop,
     },
   }
 

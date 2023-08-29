@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import "amfe-flexible"
 import router from './router'
 // @ts-ignore
 import App from './App.vue'

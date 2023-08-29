@@ -9,10 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
     "date-fns": "^2.30.0",
     "echarts": "^5.4.3",
     "element-plus": "^2.3.9",
     "pinia": "^2.1.6",
+    "postcss-pxtorem": "^6.0.0",
     "sass": "^1.66.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@types/node": "^20.5.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "autoprefixer": "^10.4.15",
     "svgo": "^3.0.2",
     "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.16.6",

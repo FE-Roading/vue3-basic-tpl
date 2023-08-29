@@ -11,13 +11,13 @@ export default function genPassRateOptions(count: number, total: number) {
 				rich: {
 					a: {
 						color: "#01A6EE",
-						fontSize: '36px',
+						fontSize: '0.2rem',
 						fontFamily: "DIN",
 						fontWeight: "bold",
 					},
 					b: {
 						color: "#01A6EE",
-						fontSize: '30px',
+						fontSize: '0.18rem',
 					}
 				}
 			}

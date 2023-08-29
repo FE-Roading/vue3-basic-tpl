@@ -55,8 +55,8 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
           <StatusBar class="hl-status-bar" :pending="isPending" :finished="isFinished" :failed="isFailed" />
 
           <div class="hl-display">
-            <CarIcon class="hl-display-car" />
-            <ElRow :gutter="116" class="hl-result-row">
+            <CarIcon class="hl-display-car" style="left: calc((100% - 80px) / 3);right: calc((100% - 80px) / 3);"/>
+            <ElRow :gutter="40" class="hl-result-row">
               <ElCol :span="8" class="hl-result-column">
                 <ResultList title="车头检测" :items="inspectedItems" :is-started="inspectedIndex > 0" class="hl-result-item"/>
                 <div class="hl-result-spacer" />
@@ -233,8 +233,6 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
       &-car {
         position: absolute;
         top: 0;
-        left: calc((100% - 232px) / 3);
-        right: calc((100% - 232px) / 3);
         bottom: 35%;
       }
     }
@@ -272,8 +270,8 @@ const isFailed = computed(() => inspectedItems.value.some(item => item.status ==
       &-center-bottom {
         position: absolute;
         bottom: 0;
-        left: 0;
-        right: 0;
+        left: 20px;
+        right: 20px;
         top: 65%;
       }
     }
