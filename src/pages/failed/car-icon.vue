@@ -54,6 +54,7 @@ function createIamge() {
 }
 
 function createLines() {
+  // @ts-ignore
   const canvas: CanvasRenderingContext2D = canvasRef.value!.getContext("2d")
   canvas.clearRect(0, 0, size.width, size.height)
   canvas.drawImage(carImageData.data, (size.width - carImageData.width) / 2, 0)
