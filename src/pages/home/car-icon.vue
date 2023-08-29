@@ -28,6 +28,7 @@ onMounted(() => {
   window.addEventListener("resize", onSizeChange)
 
   window.addEventListener("load", onSizeChange)
+  setTimeout(onSizeChange , 500)
 })
 onUnmounted(() => {
   window.removeEventListener("resize", onSizeChange)

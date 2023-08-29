@@ -26,9 +26,9 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
       暂无异常
     </div>
     <ElCarousel autoplay class="ri-body" v-else indicator-position="none">
-      <ElCarouselItem style="height: 282px;" v-for="(item, index) in vaildItems" :key="item.id" class="ri-carousel-item">
+      <ElCarouselItem style="height: 100%;" v-for="(item, index) in vaildItems" :key="item.id" class="ri-carousel-item">
         <img :src="item.image" class="ri-carousel-image" />
-        <span class="ri-carousel-describe" :style="`left: ${describeLeft };`">{{ `问题${index+1}/${vaildItems.length} ${item.problem}` }}</span>
+        <div class="ri-carousel-describe" >{{ `问题${index+1}/${vaildItems.length} ${item.problem}` }}</div>
       </ElCarouselItem>
     </ElCarousel>
   </div>
@@ -63,7 +63,8 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
       flex: none;
       background-image: url("../../assets/images/inspect/result-item-head-bg.png");
       background-size: 100% 100%;
-      padding-left: 20px;
+      padding-left: 30px;
+      padding-right: 20px;;
 
       &-left {
         font-size: 24px;
@@ -120,14 +121,17 @@ const vaildItems = computed(() => items.filter(item => item.module == title && i
       }
 
       &-describe {
-        position: absolute;
-        bottom: 13px;
-        left: 50px;
+        position: relative;
+        top: -46px;
 
         font-size: 22px;
         color: #FFFFFF;
       }
     }
+  }
+
+  :deep(.el-carousel__container) {
+    height: 100%!important;
   }
 }
 

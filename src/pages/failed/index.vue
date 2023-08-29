@@ -243,11 +243,15 @@ const inspectPercentage = computed(() => Math.ceil(inspectedCount.value / inspec
         top: 0;
         left: calc((100% - 78px) / 3);
         right: calc((100% - 78px) / 3);
-        bottom: calc(50% - 36px);
+        bottom: calc(50% - 16px);
       }
 
       &-row {
         flex: 1;
+        overflow: hidden;
+      }
+      &-column {
+        height: 100%;
       }
 
       &-spacer {

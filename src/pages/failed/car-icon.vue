@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted, computed } from "vue"
+import { ref, reactive, onMounted, onUnmounted, onActivated } from "vue"
 import carImgUri from "@/assets/images/inspect/car-bg.png"
 
 const canvasRef = ref<HTMLCanvasElement>()
@@ -27,6 +27,7 @@ onMounted(() => {
   window.addEventListener("resize", onSizeChange)
 
   window.addEventListener("load", onSizeChange)
+  setTimeout(onSizeChange , 500)
 })
 onUnmounted(() => {
   window.removeEventListener("resize", onSizeChange)
@@ -54,6 +55,7 @@ function createIamge() {
 
 function createLines() {
   const canvas: CanvasRenderingContext2D = canvasRef.value!.getContext("2d")
+  canvas.clearRect(0, 0, size.width, size.height)
   canvas.drawImage(carImageData.data, (size.width - carImageData.width) / 2, 0)
 
   const {
@@ -121,7 +123,7 @@ function getLineData() {
     },
     stop: {
       left: size.width / 2,
-      top: size.height - 36,
+      top: size.height - 10,
     },
   }
 
