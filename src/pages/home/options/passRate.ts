@@ -17,7 +17,7 @@ export default function genPassRateOptions(count: number, total: number) {
 					},
 					b: {
 						color: "#01A6EE",
-						fontSize: '0.18rem',
+						fontSize: '0.12rem',
 					}
 				}
 			}

@@ -45,8 +45,8 @@ const fttPassRateOptions = genFttPassRateOptions(fttPassedCount, fttTotoalCount)
         flex-wrap: nowrap;
 
         &-chart {
-          width: 120px;
-          height: 120px;
+          width: 0.8rem;
+          height: 0.8rem;
         }
 
         &-right {
