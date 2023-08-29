@@ -37,7 +37,7 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
           <img class="list-item-icon" :src="pendingIconUri" v-else-if="item.status == CheckedStatus.pending" />
           <img class="list-item-icon" :src="failedIconUri" v-else-if="item.status == CheckedStatus.failed" />
         </template>
-        <span v-else class="list-item-pending">--</span>
+        <span v-else class="list-item-pending">-</span>
       </div>
     </ElScrollbar>
   </div>
@@ -113,6 +113,10 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
       &-pending {
         color: #666;
         font-size: 24px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       &-icon {
