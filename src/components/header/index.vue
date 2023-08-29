@@ -94,6 +94,7 @@ onUnmounted(() => {
   .date {
     position: absolute;
     right: 30px;
+    top: 37px;
 
     font-size: 26px;
     line-height: 1;
