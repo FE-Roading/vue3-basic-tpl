@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<IndexProps>(), {
   isStarted: true,
 })
 
-
 const validItems = computed(() => props.items.filter(item => item.module == props.title))
 const passedCount = computed(() => validItems.value.filter(item => item.status == CheckedStatus.succeeded).length)
 
@@ -25,7 +24,7 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
 
 <template>
   <div class="passed-list">
-    <div class="title">
+    <div class="title" style="line-height: 56px;">
       <span class="title-left">{{ title }}</span>
       <span class="title-right">{{ passedCount }}/{{ validItems.length }}</span>
     </div>
@@ -63,7 +62,6 @@ const passedCount = computed(() => validItems.value.filter(item => item.status =
     height: 56px;
     padding-left: 20px;
     padding-right: 20px;
-    line-height: 56px;
 
     &-left {
       font-size: 24px;

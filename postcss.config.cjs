@@ -13,7 +13,7 @@ module.exports = {
     },
     'postcss-pxtorem': {
       rootValue: 192,
-      propList: ['*'],
+      propList: ['font', 'font-size', 'line-height', 'letter-spacing'],
       unitPrecision: 5,
       minPixelValue: 5,
       exclude: /node_modules/i

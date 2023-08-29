@@ -19,7 +19,7 @@
 
     resizeTimer.value = setTimeout(() => {
       if (echartInstance.value) {
-        echartInstance.value.resize()
+        echartInstance.value.resize(props.options)
       }
 
       resizeTimer.value = void 0

@@ -97,7 +97,7 @@ onUnmounted(() => {
     right: 30px;
     top: 37px;
 
-    font-size: 26px;
+    font-size: 0.13542rem;
     line-height: 1;
     color: #2FBDFF;
     letter-spacing: 1.7px;
