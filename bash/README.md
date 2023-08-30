@@ -2,6 +2,6 @@
 
 命令使用方式如下：在项目根目录下执行(可能在执行之前需要添加可执行权限)
 ```bash
-# tag_name为镜像tag名称，tag_version镜像tag版本号
-./bash/xxx.sh tag_name tag_version
+# image_name为镜像名称，image_tag镜像标签
+./bash/xxx.sh image_name image_tag
 ```
