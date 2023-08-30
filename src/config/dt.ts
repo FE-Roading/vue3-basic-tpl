@@ -1,6 +1,7 @@
-export const year = "YY"
+// This is defined for date-fns
+export const year = "yy"
 export const month = "MM"
-export const day = "DD"
+export const day = "dd"
 export const hour = "HH"
 export const minute = "mm"
 export const seconds = "ss"
