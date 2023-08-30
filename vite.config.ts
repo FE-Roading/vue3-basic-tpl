@@ -5,7 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite'
-import dayjs from "dayjs"
+import { format } from "date-fns"
 import svgLoader from "vite-svg-loader"
 
 import { defDTFormat } from "./src/config/dt"
@@ -14,7 +14,7 @@ import pkg from "./package.json"
 const { name, version } = pkg
 const __APP_INFO__ = {
   pkg: { name, version },
-  lastBuildTime: dayjs(new Date()).format(defDTFormat.dateTime),
+  lastBuildTime: format(new Date(), defDTFormat.dateTime),
 }
 
 // https://vitejs.dev/config/
