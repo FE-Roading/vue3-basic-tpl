@@ -1,6 +1,7 @@
 # Vue 3 + TypeScript + Vite
 
-- Element-plus
+- Vue3
 - Vue-router
 - pinia
-
+- Element-plus
+- date-fns
